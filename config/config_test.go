@@ -28,7 +28,7 @@ func ExampleNodeHostConfig() {
 		RaftAddress: "node01.raft.company.com:5012",
 		// ListenAddress is the local address to listen on. This field is typically
 		// set when there is port forwarding involved, e.g. your docker container
-		// might has a private address of 172.17.0.2 when the public address of the
+		// might have a private address of 172.17.0.2 when the public address of the
 		// host is node01.raft.company.com and tcp port 5012 has been published.
 		ListenAddress: "172.17.0.2:5012",
 		// set this if you want to use gRPC based RPC module for exchanging raft data between raft nodes.

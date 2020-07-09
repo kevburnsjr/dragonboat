@@ -47,7 +47,7 @@ the leader nodes incurs the lowest overhead.
 
 Dragonboat guarantees the linearizability of your I/O when interacting with the
 IStateMachine or IOnDiskStateMachine instances. In plain English, writes (via
-making proposal) to your Raft cluster appears to be instantaneous, once a write
+making proposal) to your Raft cluster appear to be instantaneous. Once a write
 is completed, all later reads (linearizable read using the ReadIndex protocol
 as implemented and provided in dragonboat) should return the value of that write
 or a later write. Once a value is returned by a linearizable read, all later
@@ -175,9 +175,6 @@ type ClusterInfo struct {
 	ConfigChangeIndex uint64
 	// StateMachineType is the type of the state machine.
 	StateMachineType sm.Type
-	// Pending is a boolean flag indicating whether details of the cluster node
-	// is not available. The Pending flag is set to true usually because the node
-	// has not had anything applied yet.
 	// IsLeader indicates whether this is a leader node.
 	IsLeader bool
 	// IsObserver indicates whether this is a non-voting observer node.
@@ -515,7 +512,7 @@ func (nh *NodeHost) StopNode(clusterID uint64, nodeID uint64) error {
 }
 
 // SyncPropose makes a synchronous proposal on the Raft cluster specified by
-// the input client session object. The specified context parameter must has
+// the input client session object. The specified context parameter must have
 // the timeout value set.
 //
 // SyncPropose returns the result returned by IStateMachine or
@@ -551,7 +548,7 @@ func (nh *NodeHost) SyncPropose(ctx context.Context,
 }
 
 // SyncRead performs a synchronous linearizable read on the specified Raft
-// cluster. The specified context parameter must has the timeout value set. The
+// cluster. The specified context parameter must have the timeout value set. The
 // query byte slice specifies what to query, it will be passed to the Lookup
 // method of the IStateMachine or IOnDiskStateMachine after the system
 // determines that it is safe to perform the local read on IStateMachine or
@@ -595,7 +592,7 @@ type Membership struct {
 
 // SyncGetClusterMembership is a rsynchronous method that queries the membership
 // information from the specified Raft cluster. The specified context parameter
-// must has the timeout value set.
+// must have the timeout value set.
 //
 // SyncGetClusterMembership guarantees that the returned membership information
 // is linearizable.
@@ -627,7 +624,7 @@ func (nh *NodeHost) SyncGetClusterMembership(ctx context.Context,
 }
 
 // GetClusterMembership returns the membership information from the specified
-// Raft cluster. The specified context parameter must has the timeout value
+// Raft cluster. The specified context parameter must have the timeout value
 // set.
 //
 // GetClusterMembership guarantees that the returned membership information is
@@ -675,7 +672,7 @@ func (nh *NodeHost) GetNoOPSession(clusterID uint64) *client.Session {
 
 // GetNewSession starts a synchronous proposal to create, register and return
 // a new client session object for the specified Raft cluster. The specified
-// context parameter must has the timeout value set.
+// context parameter must have the timeout value set.
 //
 // A client session object is used to ensure that a retried proposal, e.g.
 // proposal retried after timeout, will not be applied more than once into the
@@ -692,7 +689,7 @@ func (nh *NodeHost) GetNewSession(ctx context.Context,
 }
 
 // CloseSession closes the specified client session by unregistering it
-// from the system. The specified context parameter must has the timeout value
+// from the system. The specified context parameter must have the timeout value
 // set. This is a synchronous method meaning it will only return after its
 // confirmed completion, failure or timeout.
 //
@@ -707,7 +704,7 @@ func (nh *NodeHost) CloseSession(ctx context.Context,
 
 // SyncGetSession starts a synchronous proposal to create, register and return
 // a new client session object for the specified Raft cluster. The specified
-// context parameter must has the timeout value set.
+// context parameter must have the timeout value set.
 //
 // A client session object is used to ensure that a retried proposal, e.g.
 // proposal retried after timeout, will not be applied more than once into the
@@ -744,7 +741,7 @@ func (nh *NodeHost) SyncGetSession(ctx context.Context,
 }
 
 // SyncCloseSession closes the specified client session by unregistering it
-// from the system. The specified context parameter must has the timeout value
+// from the system. The specified context parameter must have the timeout value
 // set. This is a synchronous method meaning it will only return after its
 // confirmed completion, failure or timeout.
 //
@@ -901,7 +898,7 @@ func (nh *NodeHost) StaleRead(clusterID uint64,
 // SyncRequestSnapshot is the synchronous variant of the RequestSnapshot
 // method. See RequestSnapshot for more details.
 //
-// The input ctx must has deadline set.
+// The input ctx must have deadline set.
 //
 // SyncRequestSnapshot returns the index of the created snapshot or the error
 // encountered.

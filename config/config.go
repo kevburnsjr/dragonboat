@@ -117,8 +117,8 @@ type Config struct {
 	// SyncRequestSnapshot methods to manually request snapshots.
 	SnapshotEntries uint64
 	// CompactionOverhead defines the number of most recent entries to keep after
-	// each Raft log compaction. Raft log compaction is performance automatically
-	// every time when a snapshot is created.
+	// each Raft log compaction. Raft log compaction is performed automatically
+	// each time a snapshot is created.
 	//
 	// For example, when a snapshot is created at let's say index 10,000, then all
 	// Raft log entries with index <= 10,000 can be removed from that node as they
@@ -226,7 +226,7 @@ func (c *Config) Validate() error {
 type NodeHostConfig struct {
 	// DeploymentID is used to determine whether two NodeHost instances belong to
 	// the same deployment and thus allowed to communicate with each other. This
-	// helps to prvent accidentially misconfigured NodeHost instances to cause
+	// helps to prevent accidentially misconfigured NodeHost instances to cause
 	// data corruption errors by sending out of context messages to unrelated
 	// Raft nodes.
 	// For a particular dragonboat based application, you can set DeploymentID
@@ -296,7 +296,7 @@ type NodeHostConfig struct {
 	// is unlimited.
 	MaxReceiveQueueSize uint64
 	// LogDBFactory is the factory function used for creating the Log DB instance
-	// used by NodeHost. The default zero value causes the default built-in RocksDB
+	// used by NodeHost. The default zero value causes the default built-in PebbleDB
 	// based Log DB implementation to be used.
 	LogDBFactory LogDBFactoryFunc
 	// RaftRPCFactory is the factory function used for creating the Raft RPC

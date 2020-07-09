@@ -121,7 +121,7 @@ type SnapshotFile struct {
 // IStateMachine instance recovers from the saved snapshot.
 type ISnapshotFileCollection interface {
 	// AddFile adds an external file to the snapshot being currently generated.
-	// The file must has been finalized meaning its content will not change in
+	// The file must have been finalized meaning its content will not change in
 	// the future. It is your application's responsibility to make sure that the
 	// file being added can be accessible from the current process and it is
 	// possible to create a hard link to it from the NodeHostDir directory

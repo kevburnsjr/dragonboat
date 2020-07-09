@@ -380,7 +380,7 @@ func TestOrphanedSnapshotsCanBeProcessed(t *testing.T) {
 		}
 		// fd1 has record in logdb. flag file expected to be removed while the fd1
 		// foler is expected to be kept
-		// fd2 doesn't has its record in logdb, while the most recent snapshot record
+		// fd2 doesn't have its record in logdb, while the most recent snapshot record
 		// in logdb is not for fd2, fd2 will be entirely removed
 		if err := s.processOrphans(); err != nil {
 			t.Errorf("failed to process orphaned snapshtos %s", err)
