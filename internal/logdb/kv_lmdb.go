@@ -12,30 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// +build !dragonboat_rocksdb_test
-// +build !dragonboat_memfs_test
-// +build !dragonboat_lmdb_test
+// +build dragonboat_lmdb_test
 
 package logdb
 
 import (
 	"github.com/lni/dragonboat/v3/config"
 	"github.com/lni/dragonboat/v3/internal/logdb/kv"
-	"github.com/lni/dragonboat/v3/internal/logdb/kv/pebble"
+	"github.com/lni/dragonboat/v3/internal/logdb/kv/lmdb"
 	"github.com/lni/dragonboat/v3/internal/vfs"
 )
 
 const (
 	// DefaultKVStoreTypeName is the type name of the default kv store
-	DefaultKVStoreTypeName = "rocksdb"
+	DefaultKVStoreTypeName = "lmdb"
 )
 
 func newDefaultKVStore(config config.LogDBConfig,
 	dir string, wal string, fs vfs.IFS) (kv.IKVStore, error) {
-	if fs != vfs.DefaultFS {
-		if _, ok := fs.(*vfs.ErrorFS); !ok {
-			panic("invalid fs")
-		}
+	if fs == nil {
+		panic("nil fs")
 	}
-	return pebble.NewKVStore(config, dir, wal, fs)
+	return lmdb.NewKVStore(config, dir, wal, fs)
 }
