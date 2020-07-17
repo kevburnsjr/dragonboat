@@ -218,7 +218,7 @@ func NewBootstrapInfo(join bool,
 }
 
 // Validate checks whether the incoming nodes parameter and the join flag is
-// valid given the recorded bootstrap infomration in Log DB.
+// valid given the recorded bootstrap information in Log DB.
 func (b *Bootstrap) Validate(nodes map[uint64]string,
 	join bool, smType StateMachineType) bool {
 	if b.Type != UnknownStateMachine && b.Type != smType {
